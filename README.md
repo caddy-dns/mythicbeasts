@@ -1,23 +1,12 @@
-**DEVELOPER INSTRUCTIONS:**
-
-- Update module name in go.mod
-- Update dependencies to latest versions
-- Update name and year in license
-- Customize configuration and Caddyfile parsing
-- Update godocs / comments (especially provider name and nuances)
-- Update README and remove this section
-
----
-
-\<PROVIDER\> module for Caddy
+Mythic Beasts module for Caddy
 ===========================
 
-This package contains a DNS provider module for [Caddy](https://github.com/caddyserver/caddy). It can be used to manage DNS records with \<PROVIDER\>.
+This package contains a DNS provider module for [Caddy](https://github.com/caddyserver/caddy). It can be used to manage DNS records with [Mythic Beasts](https://www.mythic-beasts.com).
 
 ## Caddy module name
 
 ```
-dns.providers.provider_name
+dns.providers.mythicbeasts
 ```
 
 ## Config examples
@@ -26,13 +15,14 @@ To use this module for the ACME DNS challenge, [configure the ACME issuer in you
 
 ```json
 {
-	"module": "acme",
-	"challenges": {
-		"dns": {
-			"provider": {
-				"name": "provider_name",
-				"api_token": "YOUR_PROVIDER_API_TOKEN"
-			}
+    "module": "acme",
+    "challenges": {
+        "dns": {
+            "provider": {
+                            "name": "mythicbeasts",
+                            "key_id": "{env.MYTHICBEASTS_KEYID}",
+                            "secret": "{env.MYTHICBEASTS_SECRET}"
+            }
 		}
 	}
 }
@@ -41,15 +31,10 @@ To use this module for the ACME DNS challenge, [configure the ACME issuer in you
 or with the Caddyfile:
 
 ```
-# globally
-{
-	acme_dns provider_name ...
-}
-```
-
-```
-# one site
 tls {
-	dns provider_name ...
+	dns mythicbeasts {
+            key_id {$MYTHICBEASTS_KEYID}
+            secret {$MYTHICBEASTS_SECRET}
+    }
 }
 ```
