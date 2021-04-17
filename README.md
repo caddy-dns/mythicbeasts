@@ -22,7 +22,7 @@ To use this module for the ACME DNS challenge, [configure the ACME issuer in you
                             "name": "mythicbeasts",
                             "key_id": "{env.MYTHICBEASTS_KEYID}",
                             "secret": "{env.MYTHICBEASTS_SECRET}"
-            }
+            		}
 		}
 	}
 }
