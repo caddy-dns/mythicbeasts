@@ -1,4 +1,4 @@
-package template
+package mythicbeasts
 
 import (
 	"github.com/caddyserver/caddy/v2"
