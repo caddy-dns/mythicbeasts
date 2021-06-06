@@ -4,6 +4,5 @@ go 1.16
 
 require (
 	github.com/caddyserver/caddy/v2 v2.3.0
-	github.com/libdns/libdns v0.2.1 // indirect
-	github.com/tombish/mythicbeasts-provider v0.0.0-20210605232854-87ab9a025142
+	github.com/tombish/mythicbeasts-provider v0.0.0-20210605233643-d70ef7b45b89
 )
