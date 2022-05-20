@@ -1,5 +1,4 @@
-Mythic Beasts module for Caddy
-===========================
+# Mythic Beasts module for Caddy
 
 This package contains a DNS provider module for [Caddy](https://github.com/caddyserver/caddy). It can be used to manage DNS records with [Mythic Beasts](https://www.mythic-beasts.com).
 

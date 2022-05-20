@@ -3,10 +3,10 @@ package mythicbeasts
 import (
 	"github.com/caddyserver/caddy/v2"
 	"github.com/caddyserver/caddy/v2/caddyconfig/caddyfile"
-	"github.com/tombish/mythicbeasts-provider"
+	"github.com/libdns/mythicbeasts"
 )
 
-// Provider wraps the provider implementation as a Caddy module.
+// Provider lets Caddy read and manipulate DNS records hosted by this DNS provider.
 type Provider struct{ *mythicbeasts.Provider }
 
 func init() {
@@ -29,7 +29,7 @@ func (p *Provider) Provision(ctx caddy.Context) error {
 	return nil
 }
 
-// UnmarshalCaddyfile sets up the DNS provider from Caddyfile tokens. Syntax:
+// UnmarshalCaddyfile() sets up the DNS provider from Caddyfile tokens. Syntax:
 //
 // mythicbeasts {
 //     key_id <string>

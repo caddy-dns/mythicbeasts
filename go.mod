@@ -1,8 +1,8 @@
-module github.com/tombish/mythicbeasts-caddy-module
+module github.com/caddy-dns/mythicbeasts
 
 go 1.16
 
 require (
-	github.com/caddyserver/caddy/v2 v2.3.0
-	github.com/tombish/mythicbeasts-provider v0.0.0-20210605233643-d70ef7b45b89
+	github.com/caddyserver/caddy/v2 v2.4.1
+	github.com/libdns/mythicbeasts v1.0.0
 )
