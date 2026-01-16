@@ -1,6 +1,8 @@
 package mythicbeasts
 
 import (
+	"fmt"
+
 	"github.com/caddyserver/caddy/v2"
 	"github.com/caddyserver/caddy/v2/caddyconfig/caddyfile"
 	"github.com/libdns/mythicbeasts"
@@ -31,11 +33,10 @@ func (p *Provider) Provision(ctx caddy.Context) error {
 
 // UnmarshalCaddyfile() sets up the DNS provider from Caddyfile tokens. Syntax:
 //
-// mythicbeasts {
-//     key_id <string>
-//     secret <string>
-// }
-//
+//	mythicbeasts {
+//	    key_id <string>
+//	    secret <string>
+//	}
 func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 	for d.Next() {
 		if d.NextArg() {
@@ -44,16 +45,18 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 		for nesting := d.Nesting(); d.NextBlock(nesting); {
 			switch d.Val() {
 			case "key_id":
-				if d.NextArg() {
-					p.Provider.KeyID = d.Val()
+				if !d.NextArg() {
+					return d.ArgErr()
 				}
+				p.Provider.KeyID = d.Val()
 				if d.NextArg() {
 					return d.ArgErr()
 				}
 			case "secret":
-				if d.NextArg() {
-					p.Provider.Secret = d.Val()
+				if !d.NextArg() {
+					return d.ArgErr()
 				}
+				p.Provider.Secret = d.Val()
 				if d.NextArg() {
 					return d.ArgErr()
 				}
@@ -69,4 +72,13 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 var (
 	_ caddyfile.Unmarshaler = (*Provider)(nil)
 	_ caddy.Provisioner     = (*Provider)(nil)
+	_ caddy.Validator       = (*Provider)(nil)
 )
+
+// Validate implements caddy.Validator.
+func (p *Provider) Validate() error {
+	if p.Provider.KeyID == "" || p.Provider.Secret == "" {
+		return fmt.Errorf("mythicbeasts: key_id and secret are required")
+	}
+	return nil
+}
