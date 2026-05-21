@@ -25,6 +25,9 @@ func (Provider) CaddyModule() caddy.ModuleInfo {
 
 // Provision sets up the module. Implements caddy.Provisioner.
 func (p *Provider) Provision(ctx caddy.Context) error {
+	if p.Provider == nil {
+		p.Provider = new(mythicbeasts.Provider)
+	}
 	repl := caddy.NewReplacer()
 	p.Provider.KeyID = repl.ReplaceAll(p.Provider.KeyID, "")
 	p.Provider.Secret = repl.ReplaceAll(p.Provider.Secret, "")
@@ -38,6 +41,9 @@ func (p *Provider) Provision(ctx caddy.Context) error {
 //	    secret <string>
 //	}
 func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
+	if p.Provider == nil {
+		p.Provider = new(mythicbeasts.Provider)
+	}
 	for d.Next() {
 		if d.NextArg() {
 			return d.ArgErr()
@@ -77,6 +83,9 @@ var (
 
 // Validate implements caddy.Validator.
 func (p *Provider) Validate() error {
+	if p.Provider == nil {
+		return fmt.Errorf("mythicbeasts: provider is not initialized")
+	}
 	if p.Provider.KeyID == "" || p.Provider.Secret == "" {
 		return fmt.Errorf("mythicbeasts: key_id and secret are required")
 	}
