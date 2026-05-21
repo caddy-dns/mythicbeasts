@@ -4,7 +4,7 @@ go 1.25
 
 require (
 	github.com/caddyserver/caddy/v2 v2.10.2
-	github.com/libdns/mythicbeasts v1.0.5
+	github.com/libdns/mythicbeasts v1.0.6
 )
 
 require (
